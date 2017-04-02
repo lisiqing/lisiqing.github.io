@@ -13,27 +13,31 @@
 
 ![博客截图_搜索](mdrest_img/博客截图_搜索.png "全文搜索")
 
-![博客截图_搜索](mdrest_img/博客截图_评论.png "一个参数配置评论系统")
+![博客截图_评论](mdrest_img/博客截图_评论.png "评论系统")
 
+![博客截图_标签](mdrest_img/博客截图_评论.png "评论系统")
 
-
+![博客截图_自适应](mdrest_img/博客截图_评论.png "重新排版的自适应系统")
 
 
 
 ## 特性
 
-### 1. 自由
+### 1. 自由的目录结构和文章内容
 
-自由的目录结构，你的博客目录可以是这个样子，所有的目录安排，图片资源摆放，完全可以按照你自己的喜好和规则，无需按照特定的约束进行。markdown rest引擎会将所有图片资源转换为以根目录为主目录第绝对路径。
+自由的目录结构，你的博客目录可以是这个样子，所有的目录安排，图片资源摆放，完全可以按照你自己的喜好和规则，无需按照特定的约束进行。markdown rest引擎会将所有图片资源转换为以根目录为主目录绝对路径。也意味着，如果你的文章在git中浏览是正常的，那在博客中也会是正常的，无需对文章做转换。
+```
+    # Hello world
+    This is content
+    
+    ![img2](../folder2/hello.png)
+    
+    ![img2](folder2/hello.png)
+```
 
-
-
-
-
-## 2. 智能
+### 2. 智能的文档属性
 
 如果你用过其他的博客引擎，可能会要求你的博客是下面这个样子的。
-
 
 ```
     ---
@@ -48,25 +52,35 @@
     This is content
 ```
 
-Mdrest对Markdown的格式没有要求，是的，没有要求，你的文章可以是下面这个样子。
-
+Mdrest对Markdown的格式没有要求，是的，没有要求，你的文章可以是下面这个样子。文章的标题，创建日期，catalog 都可以自动生成。标题生成的的优先级是：yaml -> 第一个# -> 文件名。 草稿文章标题可以是 _filename.md。
 
 ```
-    ## Hello world
+    # Hello world
     This is content
 ```
+### 3. 自由的JSON结构
 
+MdRest支持任何格式的Yaml标签，它会将您的Ymal标签转换为JSON，例如您的文章可以是下面这个样子的。
+```
+    ---
+    video: /videos/hello_word.mp4
+    medias: [video1.mp4, video2.mp4,pic1.jpg]
+    other1: 
+  			name: "name"
+  			x1: [3, 4]
+    ---
+    # Hello world
+    This is content
+```
+### 4. 拓展Markdown渲染 （模仿简书）
+ 我们的博客中图片难免需要插入图片标注，之前很多人的做法是给图片下面添加一个段落或块引用来进行，其实Markdown原生支持 ![img2](path.png "title") 这样的形式，mdrest会自动将title作为题注，进行html渲染，当然，您可以在markdown中使用html进行更复杂的操作，但是那样就不太完美了。
 
-## Hello world
+```
+# Hello world
+![无印良品](../imgs/wulinliangpin.png "无印良品LOGO")
+```
 
-所有的Yaml字段都不是必须字段，title 可以自动生成，catalog可以自动生成，date 也可以自动生成。
-
-生成规则如下:
-
-`title` 分别可从 Markdown文件名，Markdown 第一个#标题，yaml 中读取，读取的优先级是：yaml -> 第一个# -> 文件名，这样做的好处是，如果你手头有一堆Markdown文件，你无需对它们做任何处理，就可以生成博客，另外一个好处，博客只是一个界面而已，如果用户愿意，完全可以在你的git页面中阅读文章.
-
-
-
+![博客截图_图注](mdrest_img/博客截图_图注.png)
 
 
 
